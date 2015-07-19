@@ -84,7 +84,6 @@
   <ItemGroup>
     <ClCompile Include="Device.cpp" />
     <ClCompile Include="DeviceDatabase.cpp" />
-    <ClCompile Include="DeviceSentry.cpp" />
     <ClCompile Include="PrecompiledHeader.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -97,14 +96,8 @@
     <ClInclude Include="CriticalSection.h" />
     <ClInclude Include="Device.h" />
     <ClInclude Include="DeviceDatabase.h" />
-    <ClInclude Include="DeviceSentry.h" />
     <ClInclude Include="PrecompiledHeader.h" />
     <ClInclude Include="PushToTalkController.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="DeviceSentry.inl">
-      <FileType>CppCode</FileType>
-    </None>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

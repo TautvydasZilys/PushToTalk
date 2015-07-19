@@ -4,8 +4,8 @@ struct CoInitializeWrapper
 {
 	inline CoInitializeWrapper()
 	{
-		auto result = CoInitializeEx(nullptr, COINIT_MULTITHREADED);
-		Assert(result == S_OK);
+		auto hr = CoInitializeEx(nullptr, COINIT_MULTITHREADED);
+		Assert(SUCCEEDED(hr));
 	}
 
 	inline ~CoInitializeWrapper()

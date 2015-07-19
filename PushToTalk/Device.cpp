@@ -4,8 +4,8 @@
 Device::Device(IMMDevice* device) :
 	m_Device(device)
 {
-	auto result = m_Device->Activate(__uuidof(IAudioEndpointVolume), CLSCTX_ALL, nullptr, &m_EndpointVolume);
-	Assert(result == S_OK);	
+	auto hr = m_Device->Activate(__uuidof(IAudioEndpointVolume), CLSCTX_ALL, nullptr, &m_EndpointVolume);
+	Assert(SUCCEEDED(hr));
 }
 
 Device::Device(Device&& other) :
@@ -21,19 +21,36 @@ Device& Device::operator=(Device&& other)
 	return *this;
 }
 
-bool Device::operator==(const IMMDevice* other) const
+bool Device::operator==(IMMDevice* other) const
 {
-	return m_Device.Get() == other;
+	wchar_t* otherDeviceId;
+	auto hr = other->GetId(&otherDeviceId);
+	Assert(SUCCEEDED(hr));
+
+	auto result = *this == otherDeviceId;
+	CoTaskMemFree(otherDeviceId);
+	return result;
+}
+
+bool Device::operator==(const wchar_t* otherDeviceId) const
+{
+	wchar_t* myDeviceId;
+	auto hr = m_Device->GetId(&myDeviceId);
+	Assert(SUCCEEDED(hr));
+
+	auto result = wcscmp(myDeviceId, otherDeviceId) == 0;
+	CoTaskMemFree(myDeviceId);
+	return result;
 }
 
 void Device::Mute()
 {
-	auto result = m_EndpointVolume->SetMute(TRUE, nullptr);
-	Assert(result == S_OK || result == S_FALSE);
+	auto hr = m_EndpointVolume->SetMute(TRUE, nullptr);
+	Assert(SUCCEEDED(hr));
 }
 
 void Device::Unmute()
 {
-	auto result = m_EndpointVolume->SetMute(FALSE, nullptr);
-	Assert(result == S_OK || result == S_FALSE);
+	auto hr = m_EndpointVolume->SetMute(FALSE, nullptr);
+	Assert(SUCCEEDED(hr));
 }

@@ -13,7 +13,8 @@ public:
 	Device& operator=(const Device&) = delete;
 	Device& operator=(Device&&);
 
-	bool operator==(const IMMDevice* other) const;
+	bool operator==(IMMDevice* other) const;
+	bool operator==(const wchar_t* otherDeviceId) const;
 
 	void Mute();
 	void Unmute();
