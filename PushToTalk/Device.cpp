@@ -45,12 +45,18 @@ bool Device::operator==(const wchar_t* otherDeviceId) const
 
 void Device::Mute()
 {
-	auto hr = m_EndpointVolume->SetMute(TRUE, nullptr);
-	Assert(SUCCEEDED(hr));
+    if (m_EndpointVolume != nullptr)
+    {
+        auto hr = m_EndpointVolume->SetMute(TRUE, nullptr);
+        Assert(SUCCEEDED(hr));
+    }
 }
 
 void Device::Unmute()
 {
-	auto hr = m_EndpointVolume->SetMute(FALSE, nullptr);
-	Assert(SUCCEEDED(hr));
+    if (m_EndpointVolume != nullptr)
+    {
+        auto hr = m_EndpointVolume->SetMute(FALSE, nullptr);
+        Assert(SUCCEEDED(hr));
+    }
 }
